@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------
 # common gcc configuration/optimization
 #----------------------------------------------------------------------------------------
-SIM_OPT_CXXFLAGS := -O3
+SIM_OPT_CXXFLAGS := -O2
 
 # Workaround: esp-isa-sim doesn't install libriscv,
 # so don't link with libriscv if it doesn't exist

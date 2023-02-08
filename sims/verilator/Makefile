@@ -104,7 +104,7 @@ get_waveform_flag = +vcdfile=$(1).$(if $(filter $(USE_FST),0),vcd,fst)
 # we initially had --noassert for performance, but several modules use
 # assertions, including dramsim, so we enable --assert by default
 VERILATOR_OPT_FLAGS ?= \
-	-O3 \
+	-O2 \
 	--x-assign fast \
 	--x-initial fast \
 	--output-split 10000 \
