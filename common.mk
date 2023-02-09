@@ -69,6 +69,7 @@ include $(base_dir)/generators/ibex/ibex.mk
 include $(base_dir)/generators/tracegen/tracegen.mk
 include $(base_dir)/generators/nvdla/nvdla.mk
 include $(base_dir)/tools/torture.mk
+include $(base_dir)/cs152.mk
 
 #########################################################################################
 # Prerequisite lists
@@ -328,9 +329,9 @@ verilog: $(sim_common_files)
 	%.check-exists check-binary check-binaries
 
 check-binary:
-ifeq (,$(BINARY))
-	$(error BINARY variable is not set. Set it to the simulation binary)
-endif
+#ifeq (,$(BINARY))
+#	$(error BINARY variable is not set. Set it to the simulation binary)
+#endif
 
 check-binaries:
 ifeq (,$(BINARIES))

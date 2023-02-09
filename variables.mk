@@ -228,13 +228,8 @@ MFC_LOWERING_OPTIONS ?= $(build_dir)/.mfc_lowering_options
 # java arguments used in sbt
 #########################################################################################
 JAVA_HEAP_SIZE ?= 8G
-<<<<<<< HEAD
 JAVA_TMP_DIR ?= $(base_dir)/.java_tmp
 export JAVA_TOOL_OPTIONS ?= -Xmx$(JAVA_HEAP_SIZE) -Xss8M -Djava.io.tmpdir=$(JAVA_TMP_DIR)
-=======
-export JAVA_TOOL_OPTIONS ?= -Xmx$(JAVA_HEAP_SIZE) -Xss8M -Djava.io.tmpdir=$(base_dir)/.java_tmp
-export SBT_OPTS ?= -Dsbt.ivy.home=$(base_dir)/.ivy2 -Dsbt.global.base=$(base_dir)/.sbt -Dsbt.boot.directory=$(base_dir)/.sbt/boot/
->>>>>>> 4789accd (Initial Lab 2)
 
 #########################################################################################
 # default sbt launch command
@@ -242,14 +237,8 @@ export SBT_OPTS ?= -Dsbt.ivy.home=$(base_dir)/.ivy2 -Dsbt.global.base=$(base_dir
 SCALA_BUILDTOOL_DEPS = $(SBT_SOURCES)
 
 # passes $(JAVA_TOOL_OPTIONS) from env to java
-<<<<<<< HEAD
 export SBT_OPTS ?= -Dsbt.ivy.home=$(base_dir)/.ivy2 -Dsbt.global.base=$(base_dir)/.sbt -Dsbt.boot.directory=$(base_dir)/.sbt/boot/ -Dsbt.color=always -Dsbt.supershell=false -Dsbt.server.forcestart=true
 SBT ?= java -jar $(base_dir)/scripts/sbt-launch.jar $(SBT_OPTS)
-=======
-SBT_BIN ?= java -jar $(ROCKETCHIP_DIR)/sbt-launch.jar
-SBT = $(SBT_BIN) $(SBT_CLIENT_FLAG) $(SBT_OPTS)
-SBT_NON_THIN = $(subst $(SBT_CLIENT_FLAG),,$(SBT))
->>>>>>> 4789accd (Initial Lab 2)
 
 # (1) - classpath of the fat jar
 # (2) - main class
@@ -313,7 +302,6 @@ GEN_COLLATERAL_DIR ?=$(build_dir)/gen-collateral
 #########################################################################################
 # simulation variables
 #########################################################################################
-<<<<<<< HEAD
 TIMEOUT_CYCLES = 10000000
 
 # legacy timeout_cycles handling
@@ -321,7 +309,3 @@ timeout_cycles ?=
 ifneq ($(timeout_cycles),)
 TIMEOUT_CYCLES=$(timeout_cycles)
 endif
-=======
-timeout_cycles = 15000000
-bmark_timeout_cycles = 100000000
->>>>>>> 4789accd (Initial Lab 2)
