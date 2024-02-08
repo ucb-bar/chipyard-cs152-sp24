@@ -181,7 +181,7 @@ if run_step "1"; then
 
     # use conda-lock to create env
     # conda-lock install --conda $(which conda) -p $CYDIR/.conda-env $LOCKFILE &&
-    
+
     ln -s /home/ff/cs152/sp24/chipyard/.conda-env .conda-env
 
     source $(conda info --base)/etc/profile.d/conda.sh &&
