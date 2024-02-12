@@ -2,7 +2,7 @@ package chipyard
 
 import chisel3._
 
-import freechips.rocketchip.config.{Config, Parameters}
+import org.chipsalliance.cde.config.{Config, Parameters}
 import freechips.rocketchip.rocket._
 import freechips.rocketchip.subsystem._
 
@@ -11,7 +11,6 @@ class CS152AbstractConfig extends Config(
   new chipyard.config.WithNPerfCounters ++
   new chipyard.config.WithBroadcastManager ++ // remove L2
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++
-  new chipyard.config.WithSystemBusFrequencyAsDefault ++
   new chipyard.config.WithSystemBusFrequency(500.0) ++
   new chipyard.config.WithMemoryBusFrequency(500.0) ++
   new chipyard.config.WithPeripheryBusFrequency(500.0) ++
@@ -41,6 +40,7 @@ class CS152RocketL2Config extends Config(
 class CS152RocketMysteryConfig extends Config(
   new cs152.lab2.WithSecrets ++
   new CS152AbstractConfig)
+
 
 /**********************************************************************
  * Open-Ended Problem 4.2
