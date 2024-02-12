@@ -49,8 +49,10 @@ $(sim) sim:
 define ccbench_run
 $$(output_dir)/ccbench-$(1).log: $$(ccbench_bin) $$(sim) | $$(output_dir)
 	$$(MAKE) -C $$(sim_dir) CONFIG=$$(CONFIG) \
-		BINARY='$$< $(1) $$(ccbench_iters) $$(ccbench_runtype)' \
-		run-binary-hex | tee $$@
+		BINARY='$$<' \
+		BINARY_ARGS='$(1) $$(ccbench_iters) $$(ccbench_runtype)' \
+		LOADMEM=1 \
+		run-binary | tee $$@
 endef
 
 # Generate simulation rules for each size

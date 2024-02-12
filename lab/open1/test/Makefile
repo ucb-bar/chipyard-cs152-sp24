@@ -8,7 +8,7 @@ bmarks_p := bmark-p
 bmarks_v := bmark-v
 
 ifndef RISCV
-$(error source ~cs152/sp21/cs152.lab2.bashrc)
+$(error RISCV not defined, did you source env.sh?)
 endif
 
 CC      := riscv64-unknown-elf-gcc
