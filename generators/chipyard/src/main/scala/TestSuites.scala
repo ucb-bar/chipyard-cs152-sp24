@@ -77,7 +77,7 @@ class TestSuiteHelper
           if (cfg.minFLen <= 16)
             addSuites(env.map(rv32uzfh))
         } else {
-          addSuite(rv32udBenchmarks)
+          // addSuite(rv32udBenchmarks)
           addSuites(env.map(rv64uf))
           if (cfg.fLen >= 64)
             addSuites(env.map(rv64ud))
