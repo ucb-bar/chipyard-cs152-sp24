@@ -183,7 +183,7 @@ if run_step "1"; then
     # conda-lock install --conda $(which conda) -p $CYDIR/.conda-env $LOCKFILE &&
 
     # ugly hack - hopefully its fine to use this space
-    ln -s /home/ff/cs152/more-disk/lab2/chipyard-cs152-sp24/.conda-env .conda-env
+    ln -s /home/ff/cs152/sp24/more-disk/lab2/chipyard-cs152-sp24/.conda-env .conda-env
 
     source $(conda info --base)/etc/profile.d/conda.sh &&
     conda activate $CYDIR/.conda-env/
