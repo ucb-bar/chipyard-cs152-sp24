@@ -182,8 +182,7 @@ if run_step "1"; then
     # use conda-lock to create env
     # conda-lock install --conda $(which conda) -p $CYDIR/.conda-env $LOCKFILE &&
 
-    # ugly hack - hopefully its fine to use this space
-    ln -s /home/ff/cs152/sp24/more-disk/lab2/chipyard-cs152-sp24/.conda-env .conda-env
+    ln -s /home/ff/cs152/sp24/lab2/chipyard-cs152-sp24/.conda-env .conda-env
 
     source $(conda info --base)/etc/profile.d/conda.sh &&
     conda activate $CYDIR/.conda-env/
@@ -209,7 +208,7 @@ $CONDA_ACTIVATE_PREAMBLE
 conda activate $CYDIR/.conda-env/
 source $CYDIR/scripts/fix-open-files.sh
 export LAB2ROOT=$RDIR
-export VERILATOR_ROOT=/home/ff/cs152/more-disk/lab2/verilator
+export VERILATOR_ROOT=/home/ff/cs152/sp24/lab2/verilator
 unalias make # EDA machines have make aliased which clobbers conda make"
 fi
 
