@@ -28,10 +28,18 @@ class CS152RocketConfig extends Config(
   new CS152AbstractConfig ++
   new WithCacheBlockBytes(64))
 
+class FastCS152RocketConfig extends Config(
+  new freechips.rocketchip.subsystem.WithoutTLMonitors ++
+  new CS152RocketConfig)
+
 class CS152RocketL2Config extends Config(
   new WithNBanks(1) ++ // L2 banks
   new WithInclusiveCache(nWays = 8, capacityKB = 64) ++
   new CS152RocketConfig)
+
+class FastCS152RocketL2Config extends Config(
+  new freechips.rocketchip.subsystem.WithoutTLMonitors ++
+  new CS152RocketL2Config)
 
 /**********************************************************************
  * Open-Ended Problem 4.1
@@ -41,6 +49,9 @@ class CS152RocketMysteryConfig extends Config(
   new cs152.lab2.WithSecrets ++
   new CS152AbstractConfig)
 
+class FastCS152RocketMysteryConfig extends Config(
+  new freechips.rocketchip.subsystem.WithoutTLMonitors ++
+  new CS152RocketMysteryConfig)
 
 /**********************************************************************
  * Open-Ended Problem 4.2
@@ -52,10 +63,18 @@ class CS152RocketNoPrefetchConfig extends Config(
   new freechips.rocketchip.subsystem.WithNBanks(2) ++ // increase number of broadcast hub trackers
   new CS152AbstractConfig)
 
+class FastCS152RocketNoPrefetchConfig extends Config(
+  new freechips.rocketchip.subsystem.WithoutTLMonitors ++
+  new CS152RocketNoPrefetchConfig)
+
 // Evaluation CONFIG with prefetching enabled
 class CS152RocketPrefetchConfig extends Config(
   new WithL1Prefetcher ++               // enable L1 prefetcher
   new CS152RocketNoPrefetchConfig)
+
+class FastCS152RocketPrefetchConfig extends Config(
+  new freechips.rocketchip.subsystem.WithoutTLMonitors ++
+  new CS152RocketPrefetchConfig)
 
 // TODO: Replace the module instantiation with your own
 // e.g., CustomL1Prefetcher, ModelL1Prefetcher
