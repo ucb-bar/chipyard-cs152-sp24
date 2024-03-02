@@ -60,3 +60,18 @@ class dmiMediumBoomCosimConfig extends Config(
   new chipyard.config.WithDMIDTM ++                              // have debug module expose a clocked DMI port
   new boom.common.WithNMediumBooms(1) ++
   new chipyard.config.AbstractConfig)
+
+// CS152 Lab 3
+class CS152BaselineBoomConfig extends Config(
+  new boom.common.WithNCS152BaselineBooms(1) ++
+  new chipyard.config.AbstractConfig)
+
+class CS152SWPredBoomConfig extends Config(
+  new boom.common.WithSWBPD ++
+  new boom.common.WithNCS152DefaultBooms(1) ++
+  new chipyard.config.AbstractConfig)
+
+class CS152SmallBoomConfig extends Config(
+  new boom.common.WithBoom2BPD ++
+  new boom.common.WithNCS152SmallBooms(1) ++
+  new chipyard.config.AbstractConfig)

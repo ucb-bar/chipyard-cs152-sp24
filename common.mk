@@ -324,6 +324,9 @@ verilog: $(sim_common_files)
 #########################################################################################
 # helper rules to run simulations
 #########################################################################################
+boom_bpd_count := 20
+boom_bpd_script := python3 $(base_dir)/generators/boom/util/branch-processor.py -v - $(boom_bpd_count)
+
 .PHONY: run-binary run-binary-fast run-binary-debug run-fast
 	%.check-exists check-binary check-binaries
 
@@ -371,14 +374,14 @@ run-binary: check-binary $(BINARY).run
 run-binaries: check-binaries $(addsuffix .run,$(BINARIES))
 
 %.run: %.check-exists $(SIM_PREREQ) | $(output_dir)
-	(set -o pipefail && $(NUMA_PREFIX) $(sim) $(PERMISSIVE_ON) $(call get_common_sim_flags,$*) $(VERBOSE_FLAGS) $(PERMISSIVE_OFF) $* </dev/null 2> >(spike-dasm > $(call get_sim_out_name,$*).out) | tee $(call get_sim_out_name,$*).log)
+	(set -o pipefail && $(NUMA_PREFIX) $(sim) $(PERMISSIVE_ON) $(call get_common_sim_flags,$*) $(VERBOSE_FLAGS) $(PERMISSIVE_OFF) $* </dev/null 2> >(spike-dasm | $(boom_bpd_script) > $(call get_sim_out_name,$*).out) | tee $(call get_sim_out_name,$*).log)
 
 # run simulator as fast as possible (no insn disassembly)
 run-binary-fast: check-binary $(BINARY).run.fast
 run-binaries-fast: check-binaries $(addsuffix .run.fast,$(BINARIES))
 
 %.run.fast: %.check-exists $(SIM_PREREQ) | $(output_dir)
-	(set -o pipefail && $(NUMA_PREFIX) $(sim) $(PERMISSIVE_ON) $(call get_common_sim_flags,$*) $(PERMISSIVE_OFF) $* </dev/null | tee $(call get_sim_out_name,$*).log)
+	(set -o pipefail && $(NUMA_PREFIX) $(sim) $(PERMISSIVE_ON) $(call get_common_sim_flags,$*) $(PERMISSIVE_OFF) $* $(BINARY_ARGS) </dev/null | tee $(call get_sim_out_name,$*).log)
 
 # run simulator with as much debug info as possible
 run-binary-debug: check-binary $(BINARY).run.debug
@@ -386,7 +389,7 @@ run-binaries-debug: check-binaries $(addsuffix .run.debug,$(BINARIES))
 
 %.run.debug: %.check-exists $(SIM_DEBUG_PREREQ) | $(output_dir)
 	if [ "$*" != "none" ]; then riscv64-unknown-elf-objdump -D -S $* > $(call get_sim_out_name,$*).dump ; fi
-	(set -o pipefail && $(NUMA_PREFIX) $(sim_debug) $(PERMISSIVE_ON) $(call get_common_sim_flags,$*) $(VERBOSE_FLAGS) $(call get_waveform_flag,$(call get_sim_out_name,$*)) $(PERMISSIVE_OFF) $* </dev/null 2> >(spike-dasm > $(call get_sim_out_name,$*).out) | tee $(call get_sim_out_name,$*).log)
+	(set -o pipefail && $(NUMA_PREFIX) $(sim_debug) $(PERMISSIVE_ON) $(call get_common_sim_flags,$*) $(VERBOSE_FLAGS) $(call get_waveform_flag,$(call get_sim_out_name,$*)) $(PERMISSIVE_OFF) $* $(BINARY_ARGS) </dev/null 2> >(spike-dasm | $(boom_bpd_script) > $(call get_sim_out_name,$*).out) | tee $(call get_sim_out_name,$*).log)
 
 run-fast: run-asm-tests-fast run-bmark-tests-fast
 
@@ -400,6 +403,12 @@ run-binary-debug-hex: $(BINARY).run.debug
 run-binary-debug-hex: override SIM_FLAGS += +loadmem=$(BINARY)
 run-binary-fast-hex: $(BINARY).run.fast
 run-binary-fast-hex: override SIM_FLAGS += +loadmem=$(BINARY)
+
+run-spectre:
+	$(MAKE) CONFIG=CS152SmallBoomConfig run-binary BINARY=$(base_dir)/lab/open2/pk-spectre LOADMEM=1 BINARY_ARGS=$(base_dir)/lab/open2/spectre.riscv
+
+run-spectre-debug:
+	$(MAKE) CONFIG=CS152SmallBoomConfig run-binary BINARY=$(base_dir)/lab/open2/pk-spectre LOADMEM=1 BINARY_ARGS=$(base_dir)/lab/open2/spectre.riscv
 
 #########################################################################################
 # run assembly/benchmarks rules

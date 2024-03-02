@@ -12,7 +12,7 @@
 	url = https://github.com/ucb-bar/riscv-torture.git
 [submodule "generators/boom"]
 	path = generators/boom
-	url = https://github.com/riscv-boom/riscv-boom.git
+	url = https://github.com/buggy213/riscv-boom.git
 [submodule "generators/hwacha"]
 	path = generators/hwacha
 	url = https://github.com/ucb-bar/hwacha.git
@@ -81,7 +81,7 @@
 	url = https://github.com/riscv-software-src/riscv-tests.git
 [submodule "toolchains/riscv-tools/riscv-pk"]
 	path = toolchains/riscv-tools/riscv-pk
-	url = https://github.com/riscv-software-src/riscv-pk.git
+	url = https://github.com/buggy213/riscv-pk.git
 [submodule "toolchains/riscv-tools/riscv-openocd"]
 	path = toolchains/riscv-tools/riscv-openocd
 	url = https://github.com/riscv/riscv-openocd.git
