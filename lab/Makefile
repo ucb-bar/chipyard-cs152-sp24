@@ -7,7 +7,7 @@ srcdir := $(srcdir:/=)
 
 CC := riscv64-unknown-elf-gcc
 OBJDUMP := riscv64-unknown-elf-objdump
-RISCV_SIM := spike -p2 --isa=rv64gc -l
+RISCV_SIM := spike -p2 --isa=rv64gcv -l
 
 CFLAGS := -O2 -Wall -Wno-unused-function -pedantic -std=c11 -I $(srcdir)/common -specs=htif_nano.specs
 LDFLAGS := -Wl,--defsym=__main=main -T $(srcdir)/common/data.ld
@@ -16,14 +16,15 @@ bmarks := \
 	mt-vvadd-naive \
 	mt-vvadd-opt \
 	mt-matmul-naive \
-	mt-matmul-opt
+	mt-matmul-opt \
+	vec-matmul-opt
 
 .PHONY: all
 all: dump
 
 define compile_template
 $(1).riscv: $(wildcard $(srcdir)/$(1)/*) $(wildcard $(srcdir)/common/*)
-	$$(CC) $$(CFLAGS) -o $$@ $(wildcard $(srcdir)/$(1)/*.c) $(wildcard $(srcdir)/common/*.c) $(wildcard $(srcdir)/common/*.S) $$(LDFLAGS)
+	$$(CC) $$(CFLAGS) -o $$@ $(wildcard $(srcdir)/$(1)/*.c)  $(wildcard $(srcdir)/$(1)/*.S) $(wildcard $(srcdir)/common/*.c) $(wildcard $(srcdir)/common/*.S) $$(LDFLAGS)
 endef
 
 $(foreach bmark,$(bmarks),$(eval $(call compile_template,$(bmark))))

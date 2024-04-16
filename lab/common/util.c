@@ -20,3 +20,5 @@ int barrier(void)
     __sync_synchronize();
     return rc;
 }
+
+const unsigned int nharts = 2;
